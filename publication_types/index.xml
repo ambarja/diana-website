@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publication_types | Diana Morovejo</title>
+    <link>http://example.org/publication_types/</link>
+      <atom:link href="http://example.org/publication_types/index.xml" rel="self" type="application/rss+xml" />
+    <description>Publication_types</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright> 
+[CC BY-NC](https://creativecommons.org/licenses/by-nc/4.0/)</copyright><lastBuildDate>Thu, 03 May 2018 15:46:06 -0400</lastBuildDate>
+    <image>
+      <url>http://example.org/media/icon_hu86e23d5ddcca854f1996a31098a17858_1196_512x512_fill_lanczos_center_3.png</url>
+      <title>Publication_types</title>
+      <link>http://example.org/publication_types/</link>
+    </image>
+    
+  </channel>
+</rss>
