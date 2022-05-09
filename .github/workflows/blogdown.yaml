@@ -32,6 +32,7 @@ jobs:
           R -e 'blogdown::build_site(TRUE)'
 
       - name: Deploy to GitHub pages 🚀
+        if: ${{ github.ref == 'refs/heads/devel' }}
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
