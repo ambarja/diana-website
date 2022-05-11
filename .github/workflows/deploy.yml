@@ -3,11 +3,11 @@ on:
      branches:
        - main
 
-name: build_and_goto_gh_pages
+name: build_ghpages
 
 jobs:
   blogdown:
-    name: build_and_push_to_gh_pages
+    name: build_ghpages 😎
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -27,4 +27,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           publish_dir: ./public
