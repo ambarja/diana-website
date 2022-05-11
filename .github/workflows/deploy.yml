@@ -7,59 +7,26 @@ on:
 name: render_deploy
 
 jobs:
-  render_deploy:
-
+  blogdown:
+    name: build_and_push_to_gh_pages
     runs-on: ubuntu-latest
-    container: bioconductor/bioconductor_docker:bioc2020
-
-    env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-
     steps:
       - uses: actions/checkout@v1
-
-      - name: Install renv
-        run: |
-          options(repos = c(CRAN = "https://cran.r-project.org"))
-          install.packages(c('renv', 'remotes', 'BiocManager'))
-        shell: Rscript {0}
-
-      - name: Cache renv
-        uses: actions/cache@v1
-        with:
-          path: ~/.local/share/renv
-          key: ${{ runner.os }}-r-1-${{ hashFiles('renv.lock') }}
-          restore-keys: ${{ runner.os }}-r-1-
-
-      - name: Restore renv
-        run: |
-          renv::restore()
-        shell: Rscript {0}
-
-      # This lets us augment with additional dependencies
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
-          
-      - name: Install hugo
-        run: |
-          blogdown::install_hugo(version = "0.68.3")
-        shell: Rscript {0}
-
-      - name: Render site
-        run: |
-          blogdown::build_site()
-        shell: Rscript {0}
-        
+      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-pandoc@v1
+      - name: Install rmarkdown and blogdown
+        run: Rscript -e 'install.packages(c("rmarkdown","blogdown"))'
+      - name: Install Hugo
+        run: Rscript -e 'blogdown::install_hugo(extended = TRUE, version = "0.68.3")'
+      - name: Get themes
+        run: git submodule update --remote
+      - name: Look at files
+        run: Rscript -e 'dir()'
+      - name: Run hugo_build()
+        run: Rscript -e 'blogdown::hugo_build(local = FALSE)'
       - name: Add .nojekyll
         run: |
           touch public/.nojekyll
-        
       - name: Check public toplevel files
         run: |
           ls -lha public
