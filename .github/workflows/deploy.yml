@@ -39,9 +39,6 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BASE_BRANCH: main 
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: public # The folder the action should deploy.
-          SINGLE_COMMIT: true
+          FOLDER: site # The folder the action should deploy.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
